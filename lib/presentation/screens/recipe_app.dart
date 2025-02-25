@@ -49,11 +49,11 @@ class RecipeApp extends ConsumerWidget {
     Widget getBodyContent(int selectedNavigation, WidgetRef ref) {
       switch (selectedNavigation) {
         case 0:
-          return RecipeHomeScreen(
+          return Expanded(flex: 2, child: RecipeHomeScreen(
             onRecipeSelected: (recipeId) => selectRecipe(context, recipeId),
-          );
+          ));
         case 1:
-          return const RecipeFavoritesScreen();
+          return Expanded(flex: 2, child: RecipeFavoritesScreen());
         /*case 2:
           return const RecipeProfileScreen();
         case 3:
@@ -71,10 +71,10 @@ class RecipeApp extends ConsumerWidget {
       if (selectedNavigation == 0 || selectedNavigation == 1) {
         return (selectedRecipe == null || selectedRecipeDetail == null)
             ? const Center(child: Text("Select a recipe"))
-            : RecipeDetailTabScreen(
+            : Expanded(flex: 3, child: RecipeDetailTabScreen(
           recipe: selectedRecipe,
           recipeDetail: selectedRecipeDetail,
-        );
+        ));
       }
       // In any other case, we return an empty container
       return const SizedBox.shrink();
@@ -93,21 +93,21 @@ class RecipeApp extends ConsumerWidget {
         // Transition duration
         transitionDuration: const Duration(milliseconds: 300),
         // Breakpoints
-        smallBreakpoint: const Breakpoint(endWidth: 700),
-        mediumBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1000),
-        mediumLargeBreakpoint: const Breakpoint(beginWidth: 700, endWidth: 1200),
-        largeBreakpoint: const Breakpoint(beginWidth: 1200, endWidth: 1600),
-        extraLargeBreakpoint: const Breakpoint(beginWidth: 1600),
+        smallBreakpoint: const Breakpoint(endWidth: 720),
+        mediumBreakpoint: const Breakpoint(beginWidth: 720, endWidth: 1080),
+        mediumLargeBreakpoint: const Breakpoint(beginWidth: 1080, endWidth: 1440),
+        largeBreakpoint: const Breakpoint(beginWidth: 1440, endWidth: 2160),
+        extraLargeBreakpoint: const Breakpoint(beginWidth: 2160),
         // Use drawer
         useDrawer: true,
         // Navigation index
         selectedIndex: selectedNavigation,
           onSelectedIndexChange: (int newIndex) {
             ref.read(selectedNavigationProvider.notifier).state = newIndex;
-            //if (newIndex != 0) {
+            if (newIndex != 0 && newIndex != 1) {
               ref.read(selectedRecipeProvider.notifier).state = null;
               ref.read(selectedRecipeDetailProvider.notifier).state = null;
-            //}
+            }
           },
         // Navigation destinations
         destinations: navigationDestinations,
@@ -115,6 +115,7 @@ class RecipeApp extends ConsumerWidget {
         smallBody: (_) => getBodyContent(selectedNavigation, ref),
         body: (_) => getBodyContent(selectedNavigation, ref),
         // Secondary body
+        //secondaryBody: (_) => getSecondaryBody(selectedNavigation, selectedRecipe, selectedRecipeDetail),
         mediumLargeSecondaryBody: (_) => getSecondaryBody(selectedNavigation, selectedRecipe, selectedRecipeDetail),
         largeSecondaryBody: (_) => getSecondaryBody(selectedNavigation, selectedRecipe, selectedRecipeDetail),
         extraLargeSecondaryBody: (_) => getSecondaryBody(selectedNavigation, selectedRecipe, selectedRecipeDetail)

@@ -23,7 +23,7 @@ class RecipeDetailTabScreen extends ConsumerWidget {
       length: 2,
       child: Scaffold(
         appBar:
-            (MediaQuery.of(context).size.width < 700)
+            (MediaQuery.of(context).size.width < 720)
                 ? TopBar(
                   title: recipe.name,
                   showBackButton: true,
