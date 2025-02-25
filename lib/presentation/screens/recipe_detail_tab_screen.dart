@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../domain/entities/recipe.dart';
 import '../../domain/entities/recipe_detail.dart';
 import '../screens/recipe_detail_screen.dart';
@@ -21,21 +22,28 @@ class RecipeDetailTabScreen extends ConsumerWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: const TopBar(title: "Recipe Details", showBackButton: true),
+        appBar:
+            (MediaQuery.of(context).size.width < 700)
+                ? TopBar(
+                  title: recipe.name,
+                  showBackButton: true,
+                  onBackPressed: () {},
+                )
+                : null,
         body: Column(
           children: [
             const TabBar(
               labelColor: Colors.black,
               indicatorColor: Colors.blue,
-              tabs: [
-                Tab(text: "Details"),
-                Tab(text: "Map"),
-              ],
+              tabs: [Tab(text: "Details"), Tab(text: "Map")],
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  RecipeDetailScreen(recipe: recipe, recipeDetail: recipeDetail),
+                  RecipeDetailScreen(
+                    recipe: recipe,
+                    recipeDetail: recipeDetail,
+                  ),
                   RecipeMapScreen(recipe: recipe),
                 ],
               ),
