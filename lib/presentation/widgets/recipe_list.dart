@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../providers/recipe_provider.dart';
 
 class RecipeList extends ConsumerWidget {
@@ -17,15 +18,22 @@ class RecipeList extends ConsumerWidget {
           itemCount: recipes.length,
           itemBuilder: (context, index) {
             final recipe = recipes[index];
-            return ListTile(
-              leading: Image.network(
-                recipe.imageUrl,
-                errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.error), // Manejo de errores de imagen
+            return Card(
+              margin: const EdgeInsets.all(8.0),
+              elevation: 4.0,
+              child:
+              // #docregion ListTile
+              ListTile(
+                // #enddocregion ListTile
+                leading: Image.network(
+                  recipe.imageUrl,
+                  errorBuilder:
+                      (context, error, stackTrace) => const Icon(Icons.error),
+                ),
+                title: Text(recipe.name),
+                subtitle: Text(recipe.location),
+                onTap: () => onRecipeSelected(recipe.id),
               ),
-              title: Text(recipe.name),
-              subtitle: Text(recipe.location),
-              onTap: () => onRecipeSelected(recipe.id),
             );
           },
         );
