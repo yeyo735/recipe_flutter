@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart'; // For kIsWeb and defaultTargetPlatform
 import 'package:flutter/material.dart';
 
 class RecipeFavoritesScreen extends StatelessWidget {
@@ -5,13 +7,20 @@ class RecipeFavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorites'),
-      ),
-      body: Center(
-        child: Text('Favorites'),
-      ),
-    );
+    final bool isCupertino =
+        !kIsWeb &&
+            (defaultTargetPlatform == TargetPlatform.iOS ||
+                defaultTargetPlatform == TargetPlatform.macOS);
+    if (!isCupertino) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Favorites')),
+        body: Center(child: Text('Favorites')),
+      );
+    } else {
+      return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(middle: Text('Favorites')),
+        child: Center(child: Text('Favorites')),
+      );
+    }
   }
 }

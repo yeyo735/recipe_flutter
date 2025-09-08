@@ -7,7 +7,6 @@ import '../presentation/screens/recipe_detail_tab_screen.dart';
 import '../presentation/screens/recipe_favorites_screen.dart';
 import '../presentation/screens/recipe_home_screen.dart';
 
-// ✅ Proveedores de estado para la receta seleccionada
 final selectedRecipeProvider = StateProvider<Recipe?>((ref) => null);
 final selectedRecipeDetailProvider = StateProvider<RecipeDetail?>((ref) => null);
 

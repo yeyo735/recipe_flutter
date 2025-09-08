@@ -5,7 +5,6 @@ import '../providers/recipe_provider.dart';
 
 class RecipeList extends ConsumerWidget {
   final Function(String) onRecipeSelected;
-
   const RecipeList({super.key, required this.onRecipeSelected});
 
   @override
@@ -22,7 +21,6 @@ class RecipeList extends ConsumerWidget {
               margin: const EdgeInsets.all(8.0),
               elevation: 4.0,
               child:
-              // #docregion ListTile
               ListTile(
                 // #enddocregion ListTile
                 leading: Image.network(
